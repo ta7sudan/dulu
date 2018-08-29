@@ -1,0 +1,60 @@
+{
+  "name": "dulu",
+  "version": "0.1.0",
+  "description": "Scaffolding tool for my development",
+  "main": "src/index.js",
+  "bin": {
+    "dulu": "./bin/index.js"
+  },
+  "man": "./man/doc.1",
+  "engines": {
+    "node": ">=10.9.0"
+  },
+  "scripts": {
+    "lint": "eslint src bin *.js",
+    "format": "prettier --config .prettierrc.js --write src/**/*.js bin/**/*.js",
+    "inspect": "jsinspect src bin",
+    "test": "echo todo",
+    "prepublish": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ta7sudan/dulu.git"
+  },
+  "keywords": [
+    "scaffolding",
+    "cli"
+  ],
+  "author": "ta7sudan",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/ta7sudan/dulu/issues"
+  },
+  "homepage": "https://github.com/ta7sudan/dulu#readme",
+  "files": [
+    "/bin",
+    "/src",
+    "/man",
+    "/docs"
+  ],
+  "lint-staged": {
+    "*.js": [
+      "prettier --config .prettierrc.js --write",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "npm test"
+    }
+  },
+  "devDependencies": {
+    "eslint": "^5.4.0",
+    "eslint-plugin-prettier": "^2.6.2",
+    "husky": "^1.0.0-rc.13",
+    "jsinspect": "^0.12.7",
+    "lint-staged": "^7.2.2",
+    "prettier": "^1.14.2"
+  }
+}

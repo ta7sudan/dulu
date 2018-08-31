@@ -21,9 +21,9 @@ function Downloader(opts) {
 
 	const download = isAsyncFunction(opts.download)
 		? opts.download
-		: async function() {
-				throw new Error('download is required and must be an async function.');
-		  };
+		: async function () {
+			throw new Error('download is required and must be an async function.');
+		};
 
 	function F(template, dest) {
 		const self = this instanceof F ? this : Object.create(F.prototype);
@@ -39,7 +39,7 @@ function Downloader(opts) {
 
 	F.prototype = Object.create(Downloader.prototype);
 
-	F.prototype.start = async function() {
+	F.prototype.start = async function () {
 		startLoading.call(this);
 		await download(this.template, this.dest);
 		downloadSuccess.call(this);

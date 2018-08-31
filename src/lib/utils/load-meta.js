@@ -16,6 +16,7 @@ async function loadMeta(project, dest) {
 		return;
 	}
 	const dulu = require(metaPath);
+	/* global sleep */
 	await sleep(10000);
 	await dulu({
 		fs,

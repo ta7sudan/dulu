@@ -5,8 +5,7 @@ const LocalDownloader = require('./LocalDownloader');
 const RemoteDownloader = require('./RemoteDownloader');
 const getAbsolutePath = require('./utils/absolutepath');
 const path = require('path');
-const signale = require('signale');
-const chalk = require('chalk');
+const log = require('./utils/log');
 const cleaner = require('./utils/cleanup');
 
 async function createDownloader(template, project, dest) {
@@ -16,7 +15,7 @@ async function createDownloader(template, project, dest) {
 
 	// 不要去创建多级目录, 省得出问题不好清理
 	if (!(await fs.exists(destinationParent))) {
-		signale.error(chalk.red(`no such directory ${destinationParent}.`));
+		log.error(`no such directory ${destinationParent}.`);
 		process.exit(1);
 	}
 

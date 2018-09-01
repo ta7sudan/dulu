@@ -1,7 +1,6 @@
 'use strict';
 const {name: cmdName} = require('../../package');
-const createDownloader = require('../lib/create-downloader');
-const loadMeta = require('../lib/utils/load-meta');
+const handler = require('../handlers/create');
 
 const create = {
 	command: 'create <template> [project]',
@@ -24,13 +23,7 @@ const create = {
 				'create a project from multicmd-cli template in user home'
 			);
 	},
-	async handler(argv) {
-		// TODO, support cache option
-		const {template, project, destination, cache} = argv;
-		const downloader = await createDownloader(template, project, destination, cache);
-		await downloader.start();
-		await loadMeta(project, destination);
-	}
+	handler
 };
 
 module.exports = create;

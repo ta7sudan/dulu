@@ -5,7 +5,7 @@ const log = require('./log');
 const ora = require('ora');
 
 async function handleExit() {
-	const spiner = ora('do clean up...').start();
+	const spiner = ora('do clean up...\n').start();
 	try {
 		await cleaner.cleanup();
 		spiner.succeed('clean up done.');
@@ -20,7 +20,7 @@ async function handleExit() {
 
 async function handleError(e) {
 	console.error(chalk.red(e.stack));
-	const spiner = ora('do clean up...').start();
+	const spiner = ora('do clean up...\n').start();
 	try {
 		await cleaner.cleanup();
 		spiner.succeed('clean up done.');

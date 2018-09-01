@@ -1,10 +1,10 @@
 'use strict';
 const AbstractDownloader = require('./AbstractDownloader');
-const downloadRepo = require('./utils/download-repo');
-const log = require('./utils/log');
 const fs = require('fs-extra');
+const path = require('path');
+const log = require('./utils/log');
 
-const Downloader = AbstractDownloader({
+const Porter = AbstractDownloader({
 	async move() {
 		const src = this.src,
 			dest = this.destination;
@@ -16,13 +16,18 @@ const Downloader = AbstractDownloader({
 		}
 
 		try {
-			await downloadRepo(src, dest);
+			await fs.copy(src, dest, {
+				filter(s) {
+					// 去掉.git
+					return path.basename(s) != '.git';
+				}
+			});
 		} catch (err) {
-			log.error(`Download template from ${src} to ${dest} failed.`);
+			log.error(`Copy template from ${src} to ${dest} failed.`);
 			throw err;
 		}
 		return true;
 	}
 });
 
-module.exports = Downloader;
+module.exports = Porter;

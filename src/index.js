@@ -11,7 +11,7 @@ const handleError = require('./lib/utils/error-handler');
 /**
  * DEBUG
  */
-const sleep = require('./lib/utils/sleep');
+const {sleep} = require('./lib/utils');
 global.sleep = sleep;
 
 (async () => {

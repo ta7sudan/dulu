@@ -10,7 +10,8 @@ const create = {
 			.option('d', {
 				alias: 'destination',
 				describe: 'path of the prarent dir of project',
-				string: true
+				string: true,
+				default: ''
 			})
 			.option('c', {
 				alias: 'cache',

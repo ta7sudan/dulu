@@ -3,25 +3,37 @@ const fs = require('fs-extra');
 const path = require('path');
 
 const cleaner = {
-	createdNewDir: false,
-	destination: '',
-	set(key, value) {
-		if (Object.prototype.hasOwnProperty.call(this, key)) {
-			this[key] = value;
+	maybeCreated: [],
+	maybeNotCreated: [],
+	mayCreateDir(dir) {
+		this.maybeCreated.push(dir);
+	},
+	mayNotCreateDir(dir) {
+		this.maybeNotCreated.push(dir);
+	},
+	rmFromMayCreate(dir) {
+		const i = this.maybeCreated.indexOf(dir);
+		if (~i) {
+			this.maybeCreated.splice(i, 1);
+		}
+	},
+	rmFromMayNotCreate(dir) {
+		const i = this.maybeNotCreated.indexOf(dir);
+		if (~i) {
+			this.maybeNotCreated.splice(i, 1);
 		}
 	},
 	async cleanup() {
-		if (!this.destination) {
-			return;
+		for (const dest of this.maybeCreated) {
+			if (await fs.pathExists(dest)) {
+				await fs.remove(dest);
+			}
 		}
-		const dest = this.destination;
 
-		if (this.createdNewDir) {
-			await fs.remove(dest);
-		} else {
+		for (const dest of this.maybeNotCreated) {
 			const entries = await fs.readdir(dest);
-			for (var i = 0, len = entries.length; i < len; ++i) {
-				await fs.remove(path.resolve(dest, entries[i]));
+			for (const item of entries) {
+				await fs.remove(path.resolve(dest, item));
 			}
 		}
 	}

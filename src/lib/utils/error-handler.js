@@ -10,7 +10,7 @@ async function handleExit() {
 		await cleaner.cleanup();
 		spiner.succeed('clean up done.');
 	} catch (e) {
-		log.error(`Can't remove ${cleaner.destination}. Error message: ${e.message}`);
+		log.error(`Clean up failed. Error message: ${e.message}`);
 		console.error(chalk.red(e.stack));
 		process.exit(1);
 	}
@@ -25,7 +25,7 @@ async function handleError(e) {
 		await cleaner.cleanup();
 		spiner.succeed('clean up done.');
 	} catch (err) {
-		log.error(`Can't remove ${cleaner.destination}. Error message: ${e.message}`);
+		log.error(`Clean up failed. Error message: ${e.message}`);
 		console.error(chalk.red(err.stack));
 	}
 	process.exit(1);

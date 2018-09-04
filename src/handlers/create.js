@@ -1,21 +1,20 @@
 'use strict';
-const createDownloader = require('../lib/create-downloader');
-const cleaner = require('../lib/utils/cleanup');
-const generate = require('../lib/generate');
 const fs = require('fs-extra');
 const chalk = require('chalk');
 const path = require('path');
 const ora = require('ora');
-const log = require('../lib/utils/log');
-const {DULU_DIR, TMP_DIR, hasCache, parseTemplateName, getAbsolutePath} = require('../lib/utils');
+const createDownloader = require('../lib/create-downloader');
+const Porter = require('../lib/Porter');
+const cleaner = require('../lib/utils/cleanup');
+const generate = require('../lib/generate');
+const {DULU_DIR, hasCache, parseTemplateName, getAbsolutePath, log} = require('../lib/utils');
 
 async function create(argv) {
-	const {template, project = '', destination, cache: shouldCache} = argv;
+	const {template, project = '', destination = '', cache: shouldCache} = argv;
 	const absoluteDest = getAbsolutePath(project, destination),
 		destParent = path.dirname(absoluteDest),
 		cacheDir = path.resolve(DULU_DIR, parseTemplateName(template));
 
-	// await sleep(10000);
 	if (destination && !project) {
 		log.error('must set a project name.');
 		process.exit(1);
@@ -33,50 +32,39 @@ async function create(argv) {
 	} else {
 		cleaner.mayNotCreateDir(absoluteDest);
 	}
-	cleaner.mayCreateDir(cacheDir);
-	cleaner.mayCreateDir(TMP_DIR);
 
-	fs.ensureDir(DULU_DIR);
+	await fs.ensureDir(DULU_DIR);
 
-	if (hasCache(template)) {
-		// 如果已经有缓存那就不清除缓存
-		cleaner.rmFromMayCreate(cacheDir);
-		await generate(cacheDir, absoluteDest);
+	let downloader = null,
+		spiner = ora(),
+		lastTimeCached = hasCache(template),
+		needCopyToDest = false;
+	if (lastTimeCached) {
+		downloader = new Porter(cacheDir, absoluteDest);
+		spiner.text = 'Downloading template from cache...';
+	} else if (shouldCache) {
+		downloader = createDownloader(template, cacheDir);
+		spiner.text = 'Downloading template to cache directory...\n';
+		cleaner.mayCreateDir(cacheDir);
+		needCopyToDest = true;
 	} else {
-		const downloader = createDownloader(template, cacheDir),
-			spiner = ora('Downloading template...\n');
+		downloader = createDownloader(template, absoluteDest);
+		spiner.text = 'Downloading template...\n';
+	}
+	downloader.on('start', () => spiner.start());
+	downloader.on('success', () => spiner.succeed('Download template success.'));
 
-		downloader.on('start', () => {
-			spiner.start();
-		});
-		downloader.on('success', () => {
-			spiner.succeed('Done.');
-		});
-		await downloader.start();
+	await downloader.start();
 
-		// 如果已经生成缓存并且应当缓存那就不清除缓存目录了
-		if (shouldCache) {
-			cleaner.rmFromMayCreate(cacheDir);
-		}
-
-		await generate(cacheDir, absoluteDest);
+	if (needCopyToDest) {
+		const porter = new Porter(cacheDir, absoluteDest),
+			spn = ora(`Copy template to ${chalk.blue(absoluteDest)}`);
+		porter.on('start', () => spn.start());
+		porter.on('start', () => spn.succeed('Copy template success.'));
+		await porter.start();
 	}
 
-
-	if (project) {
-		cleaner.rmFromMayCreate(absoluteDest);
-	} else {
-		cleaner.rmFromMayNotCreate(absoluteDest);
-	}
-
-	// clean up tmp
-	try {
-		await cleaner.cleanup();
-	} catch (err) {
-		log.error(err.message);
-		console.error(chalk.red(err.stack));
-		process.exit(1);
-	}
+	await generate(absoluteDest);
 }
 
 module.exports = create;

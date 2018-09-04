@@ -1,7 +1,7 @@
 'use strict';
-const {getInternalTemplate, isInternalTemplate} = require('./utils');
 const Porter = require('./Porter');
 const Downloader = require('./Downloader');
+const {getInternalTemplate, isInternalTemplate} = require('./utils');
 
 function createDownloader(template, dest) {
 	let downloader = null;

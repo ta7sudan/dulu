@@ -1,6 +1,6 @@
 'use strict';
-const {name: cmdName} = require('../../package');
 const handler = require('../handlers/create');
+const {getCmds} = require('../lib/utils');
 
 const create = {
 	command: 'create <template> [project]',
@@ -10,8 +10,7 @@ const create = {
 			.option('d', {
 				alias: 'destination',
 				describe: 'path of the prarent dir of project',
-				string: true,
-				default: ''
+				string: true
 			})
 			.option('c', {
 				alias: 'cache',
@@ -20,7 +19,7 @@ const create = {
 				default: false
 			})
 			.example(
-				`${cmdName} create multicmd-cli myproject -d ~`,
+				`${getCmds()[0]} create multicmd-cli myproject -d ~`,
 				'create a project from multicmd-cli template in user home'
 			);
 	},

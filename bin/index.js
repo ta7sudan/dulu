@@ -1,11 +1,10 @@
 #!/usr/bin/env node
 'use strict';
 
-const log = require('../src/lib/utils/log');
 const semver = require('semver');
+const {log, getCmds} = require('../src/lib/utils');
 const {
-	engines: {node: wanted},
-	name
+	engines: {node: wanted}
 } = require('../package');
 
 function checkNodeVersion(wanted, cliName) {
@@ -18,6 +17,6 @@ function checkNodeVersion(wanted, cliName) {
 	}
 }
 
-checkNodeVersion(wanted, name);
+checkNodeVersion(wanted, getCmds()[0]);
 
 require('../src/index');

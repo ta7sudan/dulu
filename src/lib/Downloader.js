@@ -1,8 +1,8 @@
 'use strict';
-const AbstractDownloader = require('./AbstractDownloader');
-const downloadRepo = require('./utils/download-repo');
-const log = require('./utils/log');
 const fs = require('fs-extra');
+const chalk = require('chalk');
+const AbstractDownloader = require('./AbstractDownloader');
+const {downloadRepo} = require('./utils');
 
 const Downloader = AbstractDownloader({
 	async move() {
@@ -11,14 +11,14 @@ const Downloader = AbstractDownloader({
 		try {
 			await fs.mkdirp(dest);
 		} catch (err) {
-			log.error(`Can't create directory ${dest}.`);
+			err.msg = `Can't create directory ${dest}.`;
 			throw err;
 		}
 
 		try {
 			await downloadRepo(src, dest);
 		} catch (err) {
-			log.error(`Download template from ${src} to ${dest} failed.`);
+			err.msg = `Download template ${chalk.blue(src)} to ${chalk.blue(dest)} failed.`;
 			throw err;
 		}
 		return true;

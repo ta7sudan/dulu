@@ -1,7 +1,7 @@
 'use strict';
 
 const templateMap = {
-	'multicmd-cli': 'multicmd-cli-template',
+	'multicmd-cli': 'github:ta7sudan/multicmd-cli-template',
 	'singlecmd-cli': 'github:ta7sudan/singlecmd-cli-template'
 };
 

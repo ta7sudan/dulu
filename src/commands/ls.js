@@ -5,7 +5,7 @@ const {getCmds} = require('../lib/utils');
 
 const ls = {
 	command: 'ls [template]',
-	desc: 'list available pre-define template or cache',
+	desc: 'list available predefined template or cache',
 	builder(yargs) {
 		return (
 			yargs
@@ -17,10 +17,10 @@ const ls = {
 				})
 				.option('t', {
 					alias: 'tpl',
-					describe: 'show pre-define template',
+					describe: 'show predefined template',
 					boolean: true
 				})
-				.example(`${getCmds()[0]} ls`, 'show all pre-define template')
+				.example(`${getCmds()[0]} ls`, 'show all predefined template')
 		);
 	},
 	handler

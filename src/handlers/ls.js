@@ -19,11 +19,11 @@ function showInternalTemplate(tName) {
 		.map(k => [k, templateMap[k]]);
 
 	if (!items.length) {
-		log.error('no such pre-define template.');
+		log.error('no such predefined template.');
 		process.exit(1);
 	} else {
 		table.push(...items);
-		console.log(chalk.blue('\nPre-define templates:'));
+		console.log(chalk.blue('\nPredefined templates:'));
 		console.log(table.toString());
 	}
 }

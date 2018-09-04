@@ -3,26 +3,93 @@ Scaffolding tool for my development
 
 
 
+# Installation
+
+```shell
+npm i -g dulu
+```
 
 
 
+# Usage
 
-#### TODO
+The command line utility has several subcommands.
 
-* `dulu add <template-name> <repo-url>` 写到 ~/dulu.json 里
-* 支持同步配置到 gist
-* `dulu create <template> [project] -p <path>`
-* `dule ls`
-* `dulu create <user>/<repo> -p <path>` 以某仓库为模板, 会调用仓库中一些脚本作为子命令询问提示
-* 错误上报
-* 模板缓存
+## Create new project
+
+```shell
+dulu create <template> [project]
+```
+
+dulu has some predefined templates without download. eg.
+
+```shell
+dulu create multicmd-cli demo
+```
+
+### From Repo
+
+It also supports download a template from a GitHub repo or others. Use  [shorthand repository string](dulu create multicmd-cli demo) that download-git-repo supports.
+
+```shell
+dulu create github:ta7sudan/multicmd-cli demo
+```
+
+### Cache
+
+You can cache template by `-c` flag. By default, all template cached at `$HOME/.dulu`.
+
+```shell
+dulu create github:ta7sudan/multicmd-cli demo -c
+```
 
 
 
-`dulu create template test`
+## Show available predefined template and template cache
 
-`dulu create template test -d /c/test`
+```shell
+dulu ls
+```
 
-`dulu create template`
+or
 
-`dulu create template -d /c/test` x
+```shell
+dulu ls -t
+```
+
+or
+
+```shell
+dulu ls -c
+```
+
+
+
+## Clear template cache
+
+You can clear a template cache such as multicmd-cli like this.
+
+```shell
+dulu clear multicmd-cli
+```
+
+or clear all caches.
+
+```shell
+dulu clear -a
+```
+
+
+
+## More Options
+
+```shell
+dulu -h
+```
+
+or
+
+```shell
+dulu <subcommand> -h
+```
+

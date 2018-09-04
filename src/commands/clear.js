@@ -1,7 +1,7 @@
 'use strict';
 const fs = require('fs-extra');
 const path = require('path');
-const {log, getCmds, DULU_DIR} = require('../lib/utils');
+const {log, getCmds, parseTemplateName, DULU_DIR} = require('../lib/utils');
 
 const ls = {
 	command: 'clear [template]',
@@ -26,7 +26,7 @@ const ls = {
 			await fs.remove(DULU_DIR);
 			log.success('OK.');
 		} else if (template) {
-			const templatePath = path.resolve(DULU_DIR, template);
+			const templatePath = path.resolve(DULU_DIR, parseTemplateName(template));
 			if (await fs.pathExists(templatePath)) {
 				await fs.remove(templatePath);
 				log.success('OK.');

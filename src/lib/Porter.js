@@ -19,7 +19,7 @@ const Porter = AbstractDownloader({
 			await fs.copy(src, dest, {
 				filter(s) {
 					// 去掉.git
-					return path.basename(s) != '.git';
+					return path.basename(s) !== '.git';
 				}
 			});
 		} catch (err) {

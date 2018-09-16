@@ -1,6 +1,6 @@
 {
 	"name": "dulu",
-	"version": "0.2.1",
+	"version": "0.2.2",
 	"description": "Scaffolding tool for my development",
 	"main": "src/index.js",
 	"bin": {

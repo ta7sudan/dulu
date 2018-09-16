@@ -24,7 +24,7 @@ const {getCmds, getFiglet} = require('./lib/utils');
 		.completion('completion', 'get completion script')
 		.alias('h', 'help')
 		.alias('v', 'version')
-		.example(`${cmdName} create library`, 'create a project from library template')
+		.example(`${cmdName} create multicmd-cli myproject`, 'create a project from multicmd-cli template')
 		.usage(chalk.yellowBright(logo))
 		.version(version)
 		.help()

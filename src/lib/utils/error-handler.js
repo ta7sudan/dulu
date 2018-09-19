@@ -30,15 +30,13 @@ async function handleError(e) {
 		await cleaner.cleanUp();
 		spiner.succeed('clean up done.');
 	} catch (err) {
-		log.error(`Clean up failed. Error message: ${e.message}`);
+		log.error(`Clean up failed. Error message: ${err.message}`);
 		console.error(chalk.red(err.stack));
 	}
 	process.exit(1);
 }
 
-process.addListener('SIGINT', handleExit);
-process.addListener('SIGTERM', handleExit);
 
-process.addListener('uncaughtException', handleError);
+exports.handleError = handleError;
 
-module.exports = handleError;
+exports.handleExit = handleExit;

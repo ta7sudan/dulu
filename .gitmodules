@@ -1,3 +1,6 @@
 [submodule "templates/multicmd-cli-template"]
 	path = templates/multicmd-cli-template
 	url = https://github.com/ta7sudan/multicmd-cli-template.git
+[submodule "templates/singlecmd-cli-template"]
+	path = templates/singlecmd-cli-template
+	url = https://github.com/ta7sudan/singlecmd-cli-template

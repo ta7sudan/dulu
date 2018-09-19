@@ -8,6 +8,8 @@ const {version, author} = require('../package');
 const {handleError, handleExit} = require('./lib/utils/error-handler');
 const {getCmds, getFiglet} = require('./lib/utils');
 
+const authorName = typeof author === 'string' ? author : author.name;
+
 process.addListener('SIGINT', handleExit);
 process.addListener('SIGTERM', handleExit);
 process.addListener('uncaughtException', handleError);
@@ -31,7 +33,7 @@ process.addListener('uncaughtException', handleError);
 		.example(`${cmdName} create multicmd-cli myproject`, 'create a project from multicmd-cli template')
 		.usage(`${chalk.yellowBright(logo)}\n\n${chalk.blue.underline('Usage:')} ${cmdName} <command> [options]`)
 		.version(version)
-		.epilog(`By ${author}`)
+		.epilog(`By ${authorName}`)
 		.help()
 		.fail((msg, err, yargs) => {
 			// 这个坑爹东西会捕获掉所有同步异常, 子命令的fail还会向上一级命令的fail冒泡

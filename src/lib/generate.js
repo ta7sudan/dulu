@@ -6,7 +6,7 @@ const ora = require('ora');
 const artTpl = require('art-template');
 const inquirer = require('inquirer');
 const glob = require('fast-glob');
-const {log} = require('./utils');
+const {logger} = require('./utils');
 
 artTpl.defaults.debug = false;
 artTpl.defaults.bail = true;
@@ -75,7 +75,7 @@ async function generate(dest) {
 		spiner = ora('Generating template...\n');
 
 	if (!(await fs.pathExists(metaPath))) {
-		log.note(`.dulu.js not found. Just download template at ${dest}`);
+		logger.warn(`.dulu.js not found. Just download template at ${dest}`);
 		return;
 	}
 
@@ -114,7 +114,7 @@ async function generate(dest) {
 	}
 
 	spiner.stop();
-	log.success(`Project created at ${dest}. Enjoy!`);
+	logger.success(`Project created at ${dest}. Enjoy!`);
 }
 
 module.exports = generate;

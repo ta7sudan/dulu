@@ -1,7 +1,7 @@
 'use strict';
 const fs = require('fs-extra');
 const path = require('path');
-const {log, getCmds, parseTemplateName, DULU_DIR} = require('../lib/utils');
+const {logger, getCmds, parseTemplateName, DULU_DIR} = require('../lib/utils');
 
 const ls = {
 	command: 'clear [template]',
@@ -18,24 +18,24 @@ const ls = {
 	async handler(argv) {
 		const {all, template} = argv;
 		if (!all && !template) {
-			log.error("clear should be 'clear -a' or 'clear <template>'");
+			logger.error("clear should be 'clear -a' or 'clear <template>'");
 			process.exit(1);
 		}
 
 		if (all && (await fs.pathExists(DULU_DIR))) {
 			await fs.remove(DULU_DIR);
-			log.success('OK.');
+			logger.success('OK.');
 		} else if (template) {
 			const templatePath = path.resolve(DULU_DIR, parseTemplateName(template));
 			if (await fs.pathExists(templatePath)) {
 				await fs.remove(templatePath);
-				log.success('OK.');
+				logger.success('OK.');
 			} else {
-				log.error('no such template cache.');
+				logger.error('no such template cache.');
 				process.exit(1);
 			}
 		} else {
-			log.success('OK.');
+			logger.success('OK.');
 		}
 	}
 };

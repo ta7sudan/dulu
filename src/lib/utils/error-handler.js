@@ -2,7 +2,7 @@
 const chalk = require('chalk');
 const ora = require('ora');
 const cleaner = require('./cleanup');
-const {log} = require('./index');
+const {logger} = require('./index');
 
 async function handleExit() {
 	const spiner = ora('do clean up...\n').start();
@@ -10,7 +10,7 @@ async function handleExit() {
 		await cleaner.cleanUp();
 		spiner.succeed('Exiting without error.');
 	} catch (e) {
-		log.error(`Clean up failed. Error message: ${e.message}`);
+		logger.error(`Clean up failed. Error message: ${e.message}`);
 		console.error(chalk.red(e.stack));
 		process.exit(1);
 	}
@@ -19,9 +19,9 @@ async function handleExit() {
 
 async function handleError(e) {
 	if (e.msg) {
-		log.error(e.msg);
+		logger.error(e.msg);
 	} else {
-		log.error(e.message);
+		logger.error(e.message);
 	}
 	console.error(chalk.red(e.stack));
 
@@ -30,7 +30,7 @@ async function handleError(e) {
 		await cleaner.cleanUp();
 		spiner.succeed('clean up done.');
 	} catch (err) {
-		log.error(`Clean up failed. Error message: ${err.message}`);
+		logger.error(`Clean up failed. Error message: ${err.message}`);
 		console.error(chalk.red(err.stack));
 	}
 	process.exit(1);

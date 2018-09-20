@@ -4,7 +4,7 @@ const chalk = require('chalk');
 const fs = require('fs-extra');
 const path = require('path');
 const templateMap = require('../lib/utils/template-map');
-const {log, DULU_DIR} = require('../lib/utils');
+const {logger, DULU_DIR} = require('../lib/utils');
 
 function showInternalTemplate(tName) {
 	const table = new Table({
@@ -19,7 +19,7 @@ function showInternalTemplate(tName) {
 		.map(k => [k, templateMap[k]]);
 
 	if (!items.length) {
-		log.error('no such predefined template.');
+		logger.error('no such predefined template.');
 		process.exit(1);
 	} else {
 		table.push(...items);

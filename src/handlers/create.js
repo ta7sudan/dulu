@@ -7,7 +7,7 @@ const createDownloader = require('../lib/create-downloader');
 const Porter = require('../lib/Porter');
 const cleaner = require('../lib/utils/cleanup');
 const generate = require('../lib/generate');
-const {DULU_DIR, hasCache, parseTemplateName, getAbsolutePath, log} = require('../lib/utils');
+const {DULU_DIR, hasCache, parseTemplateName, getAbsolutePath, logger} = require('../lib/utils');
 
 async function create(argv) {
 	const {template, project = '', destination = '', cache: shouldCache} = argv;
@@ -16,13 +16,13 @@ async function create(argv) {
 		cacheDir = path.resolve(DULU_DIR, parseTemplateName(template));
 
 	if (destination && !project) {
-		log.error('must set a project name.');
+		logger.error('must set a project name.');
 		process.exit(1);
 	}
 
 	// 不要去创建多级目录, 省得出问题不好清理
 	if (!(await fs.pathExists(destParent))) {
-		log.error(`no such directory ${destParent}.`);
+		logger.error(`no such directory ${destParent}.`);
 		process.exit(1);
 	}
 

@@ -6,7 +6,7 @@ const path = require('path');
 const os = require('os');
 const {bin} = require('../../../package');
 const templateMap = require('./template-map');
-const log = require('./log');
+const logger = require('./logger');
 
 const DULU_DIR = path.resolve(os.homedir(), '.dulu');
 const TEMPLATES_DIR = path.resolve(__dirname, '../../../templates');
@@ -53,7 +53,7 @@ exports.downloadRepo = (repo, dest) =>
 		dld(repo, dest, err => (err ? rj(err) : rs()));
 	});
 
-exports.log = log;
+exports.logger = logger;
 
 exports.DULU_DIR = DULU_DIR;
 

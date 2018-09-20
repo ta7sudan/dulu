@@ -2,7 +2,7 @@
 'use strict';
 
 const semver = require('semver');
-const {log, getCmds} = require('../src/lib/utils');
+const {logger, getCmds} = require('../src/lib/utils');
 const {
 	engines: {node: wanted}
 } = require('../package');
@@ -10,7 +10,7 @@ const {
 function checkNodeVersion(wanted, cliName) {
 	const curNodeVersion = process.version;
 	if (!semver.satisfies(curNodeVersion, wanted)) {
-		log.error(
+		logger.error(
 			`You are using Node ${curNodeVersion}, but this version of ${cliName} requires Node ${wanted}. Please upgrade your Node version.`
 		);
 		process.exit(1);

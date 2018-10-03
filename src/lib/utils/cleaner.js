@@ -23,7 +23,7 @@ const cleaner = {
 			this.maybeNotCreated.splice(i, 1);
 		}
 	},
-	async cleanUp() {
+	async cleanup() {
 		for (const dest of this.maybeCreated) {
 			if (await fs.pathExists(dest)) {
 				await fs.remove(dest);

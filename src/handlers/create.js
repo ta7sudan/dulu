@@ -5,9 +5,8 @@ const path = require('path');
 const ora = require('ora');
 const createDownloader = require('../lib/create-downloader');
 const Porter = require('../lib/Porter');
-const cleaner = require('../lib/utils/cleanup');
 const generate = require('../lib/generate');
-const {DULU_DIR, hasCache, parseTemplateName, getAbsolutePath, logger} = require('../lib/utils');
+const {DULU_DIR, hasCache, parseTemplateName, getAbsolutePath, logger, cleaner} = require('../lib/utils');
 
 async function create(argv) {
 	const {template, project = '', destination = '', cache: shouldCache} = argv;

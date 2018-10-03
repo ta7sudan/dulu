@@ -1,13 +1,12 @@
 'use strict';
 const chalk = require('chalk');
 const ora = require('ora');
-const cleaner = require('./cleanup');
-const {logger} = require('./index');
+const {logger, cleaner} = require('./index');
 
 async function handleExit() {
 	const spiner = ora('do clean up...\n').start();
 	try {
-		await cleaner.cleanUp();
+		await cleaner.cleanup();
 		spiner.succeed('Exiting without error.');
 	} catch (e) {
 		logger.error(`Clean up failed. Error message: ${e.message}`);
@@ -27,7 +26,7 @@ async function handleError(e) {
 
 	const spiner = ora('do clean up...\n').start();
 	try {
-		await cleaner.cleanUp();
+		await cleaner.cleanup();
 		spiner.succeed('clean up done.');
 	} catch (err) {
 		logger.error(`Clean up failed. Error message: ${err.message}`);

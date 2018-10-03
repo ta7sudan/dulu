@@ -10,6 +10,8 @@ const {getCmds, getFiglet} = require('./lib/utils');
 
 const authorName = typeof author === 'string' ? author : author.name;
 
+process.addListener('SIGHUP', handleExit);
+process.addListener('SIGQUIT', handleExit); // 虽然Windows不支持, 不过好像加了也没事
 process.addListener('SIGINT', handleExit);
 process.addListener('SIGTERM', handleExit);
 process.addListener('uncaughtException', handleError);
@@ -35,10 +37,10 @@ process.addListener('uncaughtException', handleError);
 		.version(version)
 		.epilog(`By ${authorName}`)
 		.help()
-		.fail((msg, err, yargs) => {
+		.fail(async (msg, err, yargs) => {
 			// 这个坑爹东西会捕获掉所有同步异常, 子命令的fail还会向上一级命令的fail冒泡
 			if (err) {
-				handleError(err);
+				await handleError(err);
 			} else {
 				// 处理子命令不带参数
 				yargs.showHelp();

@@ -7,6 +7,7 @@ const os = require('os');
 const {bin} = require('../../../package');
 const templateMap = require('./template-map');
 const logger = require('./logger');
+const cleaner = require('./cleaner');
 
 const DULU_DIR = path.resolve(os.homedir(), '.dulu');
 const TEMPLATES_DIR = path.resolve(__dirname, '../../../templates');
@@ -58,3 +59,5 @@ exports.logger = logger;
 exports.DULU_DIR = DULU_DIR;
 
 exports.TEMPLATES_DIR = TEMPLATES_DIR;
+
+exports.cleaner = cleaner;

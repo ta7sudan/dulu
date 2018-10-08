@@ -5,15 +5,15 @@ const yargs = require('yargs');
 const yargonaut = require('yargonaut');
 const chalk = require('chalk');
 const {version, author} = require('../package');
-const {handleError, handleExit} = require('./lib/utils/error-handler');
+const {handleError, handleSignal} = require('./lib/utils/error-handler');
 const {getCmds, getFiglet} = require('./lib/utils');
 
 const authorName = typeof author === 'string' ? author : author.name;
 
-process.addListener('SIGHUP', handleExit);
-process.addListener('SIGQUIT', handleExit); // 虽然Windows不支持, 不过好像加了也没事
-process.addListener('SIGINT', handleExit);
-process.addListener('SIGTERM', handleExit);
+process.addListener('SIGHUP', handleSignal);
+process.addListener('SIGQUIT', handleSignal); // 虽然Windows不支持, 不过好像加了也没事
+process.addListener('SIGINT', handleSignal);
+process.addListener('SIGTERM', handleSignal);
 process.addListener('uncaughtException', handleError);
 
 (async () => {

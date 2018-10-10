@@ -15,7 +15,8 @@
 		"format": "prettier --config .prettierrc.js --write src/**/*.js bin/**/*.js",
 		"inspect": "jsinspect src bin",
 		"test": "echo todo",
-		"prepare": "npm test"
+		"prepare": "npm test",
+		"preuninstall": "dulu clear -a"
 	},
 	"repository": {
 		"type": "git",

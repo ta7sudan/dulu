@@ -21,12 +21,21 @@ async function excludeFiles(dest, excludes) {
 			absolute: true,
 			dot: true
 		}),
+		dirs = await glob(`+(${excludes.join('|')})`, {
+			cwd: dest,
+			absolute: true,
+			dot: true,
+			onlyDirectories: true
+		}),
 		rm = [];
 
 	for (const item of entries) {
 		rm.push(fs.remove(item));
 	}
 	await Promise.all(rm);
+	for (const dir of dirs) {
+		await fs.remove(dir);
+	}
 }
 
 async function renderTemplates(dest, templates, data) {
@@ -73,7 +82,7 @@ async function generate(dest) {
 	const projectName = path.basename(dest),
 		metaPath = path.resolve(dest, '.dulu.js'),
 		spiner = ora('Generating template...\n');
-
+	
 	if (!(await fs.pathExists(metaPath))) {
 		logger.warn(`.dulu.js not found. Just download template at ${dest}`);
 		return;

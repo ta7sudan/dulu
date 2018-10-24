@@ -4,3 +4,6 @@
 [submodule "templates/singlecmd-cli-template"]
 	path = templates/singlecmd-cli-template
 	url = https://github.com/ta7sudan/singlecmd-cli-template
+[submodule "templates/lib-template"]
+	path = templates/lib-template
+	url = https://github.com/ta7sudan/lib-template

@@ -23,6 +23,7 @@
 		"url": "git+https://github.com/ta7sudan/dulu.git"
 	},
 	"keywords": [
+		"dulu",
 		"scaffolding",
 		"cli"
 	],

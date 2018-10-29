@@ -7,3 +7,6 @@
 [submodule "templates/lib-template"]
 	path = templates/lib-template
 	url = https://github.com/ta7sudan/lib-template
+[submodule "templates/node-lib-template"]
+	path = templates/node-lib-template
+	url = https://github.com/ta7sudan/node-lib-template.git

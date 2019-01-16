@@ -10,3 +10,6 @@
 [submodule "templates/node-lib-template"]
 	path = templates/node-lib-template
 	url = https://github.com/ta7sudan/node-lib-template.git
+[submodule "templates/vue-mobile-template"]
+	path = templates/vue-mobile-template
+	url = https://github.com/ta7sudan/vue-mobile-template.git

@@ -13,3 +13,6 @@
 [submodule "templates/vue-mobile-template"]
 	path = templates/vue-mobile-template
 	url = https://github.com/ta7sudan/vue-mobile-template.git
+[submodule "templates/ts-lib-template"]
+	path = templates/ts-lib-template
+	url = https://github.com/ta7sudan/ts-lib-template.git

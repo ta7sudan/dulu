@@ -16,3 +16,6 @@
 [submodule "templates/ts-lib-template"]
 	path = templates/ts-lib-template
 	url = https://github.com/ta7sudan/ts-lib-template.git
+[submodule "templates/ts-node-lib-template"]
+	path = templates/ts-node-lib-template
+	url = https://github.com/ta7sudan/ts-node-lib-template.git

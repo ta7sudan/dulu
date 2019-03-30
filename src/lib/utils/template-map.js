@@ -6,6 +6,7 @@ const templateMap = {
 	'lib': 'github:ta7sudan/lib-template',
 	'node-lib': 'github:ta7sudan/node-lib-template',
 	'ts-lib': 'github:ta7sudan/ts-lib-template',
+	'ts-node-lib': 'github:ta7sudan/ts-node-lib-template',
 	'vue-mobile': 'github:ta7sudan/vue-mobile-template'
 };
 

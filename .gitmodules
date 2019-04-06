@@ -19,3 +19,6 @@
 [submodule "templates/ts-node-lib-template"]
 	path = templates/ts-node-lib-template
 	url = https://github.com/ta7sudan/ts-node-lib-template.git
+[submodule "templates/ts-multicmd-template"]
+	path = templates/ts-multicmd-template
+	url = https://github.com/ta7sudan/ts-multicmd-template.git

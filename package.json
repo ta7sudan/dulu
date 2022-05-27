@@ -67,7 +67,7 @@
 		"fast-glob": "^2.2.2",
 		"figlet": "^1.2.0",
 		"figures": "^2.0.0",
-		"fs-extra": "^7.0.0",
+		"fs-extra": "^8.0.0",
 		"inquirer": "^6.2.0",
 		"ora": "^3.0.0",
 		"semver": "^5.5.1",
